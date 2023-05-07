@@ -1,0 +1,29 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Добавление раздела
+{% endblock %}
+
+{% block content %}
+<div class="col-1 content-left"> </div>
+    <div class="col-10 content-center">
+<!--    <h1>Центр реабилитации черепахи Никольского</h1> -->
+        <h4> Новый раздел форума</h4>
+        {% if user.is_authenticated %}
+            {% if user.username == "admin" %}
+                <form method="post">
+                    {% csrf_token %}
+                    <p>ID нового раздела</p>{{ form.position }}<br>
+                    <p>Название нового раздела</p>{{ form.title }}<br>
+<!--                    <span>{{ error }}</span> -->
+                    <button classs="btn btn-success" type="submit">Добавить раздел</button>
+                </form>
+            {% else %}
+                <h2> Выполните вход для добавления раздела </h2>
+            {% endif %}
+        {% else %}
+            <h2> Добавление раздела запрещено </h2>
+        {% endif %}
+    </div>
+<div class="col-1 content-right"></div>
+{% endblock %}

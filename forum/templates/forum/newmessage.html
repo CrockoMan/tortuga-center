@@ -1,0 +1,27 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Добавить сообщение
+{% endblock %}
+
+{% block content %}
+<div class="col-1 content-left"> </div>
+    <div class="col-10 content-center">
+        <h2> Добавить сообщение в {{ theme.title }}</h2>
+        {% if user.is_authenticated %}
+            {% if user.username == "admin" %}
+                <form method="post">
+                    {% csrf_token %}
+                    <p>Сообщение</p>{{ form.message }}<br>
+<!--                    <span>{{ error }}</span> -->
+                    <button classs="btn btn-success" type="submit">Добавить сообщение</button>
+                </form>
+            {% else %}
+                <h2> Выполните вход для добавления сообщения </h2>
+            {% endif %}
+        {% else %}
+            <h2> Добавление сообщений запрещено </h2>
+        {% endif %}
+    </div>
+<div class="col-1 content-right"></div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Форум
+{% endblock %}
+
+{% block content %}
+    <div class="col-1 content-left"> </div>
+    <div class="col-10 content-center">
+<!--        <h2> Темы раздела "{{ chapter.title }}" </h2> -->
+        <h4> "{{ chapter.title }}" {{ theme.title }}</h4>
+        {% if message %}
+            {% for el in message %}
+                <div class="alert alert-warning">
+                    <p> owner={{ el.owner }} el.id={{ el.id }} theme.pk={{ theme.pk }}</p>
+                    <p>{{ el.message }}</p>
+<!--                    <a href="{% url 'message' el.id %}"> {{ el.message }}</a> -->
+<!--                    <a href="{% url 'news-detail' el.id %}" class="btn-warning">Читать</a> -->
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Тем в этом разделе пока нет</p>
+        {% endif%}
+    </div>
+    <div class="col-1 content-right"></div>
+
+    {% if user.is_authenticated %}
+        {% if user.username == "admin" %}
+            <div class="container">
+                    <div class="row news_update">
+                        <div class="col-4 content-left"> </div>
+                        <div class="col-4 content-center">
+                                <a href="{% url 'forum_create_message' theme.pk %}" class="btn btn-info w-100">Новый комментарий</a>
+                        </div>
+                    </div>
+            </div>
+        {% endif%}
+    {% endif%}
+
+
+{% endblock %}
