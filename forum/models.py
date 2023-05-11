@@ -32,6 +32,7 @@ class Themes(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     ip_addr = GenericIPAddressField(blank=True, null = True)
     is_show = models.BooleanField(default=True)
+    posts = models.IntegerField('Сообщений', default=0)
     views = models.IntegerField('Просмотры', default=0)
 
     def __str__(self):
@@ -67,3 +68,17 @@ class Messages(models.Model):
         verbose_name = "Сообщения"
         verbose_name_plural = "Сообщение"
         db_table = "messages"
+
+
+class MessageImages(models.Model):
+    message_id = models.ForeignKey(Messages, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    image = models.ImageField('Изображение', upload_to='forum_images/%Y%m%d')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Изображения"
+        verbose_name_plural = "Изображение"
+        db_table = "message_images"

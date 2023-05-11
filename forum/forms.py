@@ -21,6 +21,7 @@ class ChaptersForm(ModelForm):
             }),
         }
 
+
 class ThemeForm_(ModelForm):
     class Meta:
         model = Chapters
@@ -31,6 +32,7 @@ class ThemeForm_(ModelForm):
                 'placeholder': 'Название темы'
             }),
         }
+
 
 class ThemeForm(forms.Form):
     title = forms.CharField(min_length=10, max_length=150, label='Тема', required=True,
@@ -50,3 +52,4 @@ class MessageForm(forms.Form):
                               widget=forms.Textarea(attrs={'placeholder': 'Сообщение',
                                                            'class': 'form-control'})
                               )
+    image = forms.ImageField(label='Прикрепить изображение', required=False)

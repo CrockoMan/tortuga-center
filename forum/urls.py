@@ -8,4 +8,5 @@ urlpatterns = [
     path('<int:id>', views.forum_themes, name='themes'),
     path('theme/<int:id>', views.forum_message, name='message'),
     path('add/<int:pk>', views.forum_create_message, name='forum_create_message'),
+    path('add_with_quote/<int:id>', views.forum_create_quote_message, name='forum_create_quote_message'),
 ]
