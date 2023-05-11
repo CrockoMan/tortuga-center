@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'news',
     'loginsys',
     'captcha',
+    'forum',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

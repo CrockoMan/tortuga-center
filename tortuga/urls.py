@@ -26,8 +26,14 @@ urlpatterns = [
     path('news/', include('news.urls')),
     path('auth/', include('loginsys.urls')),
     path('captcha/', include('captcha.urls')),
-#    path('accounts/', include('django.contrib.auth.urls'))
+    path('forum/', include('forum.urls')),
+                  #    path('accounts/', include('django.contrib.auth.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)
+
 
 handler404="tortuga.views.handle_error404"
 handler500="tortuga.views.handle_error500"
