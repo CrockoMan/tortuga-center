@@ -1,5 +1,6 @@
 from django import forms
-from django.forms import ModelForm, TextInput, DateTimeInput, Textarea, NumberInput
+from django.forms import (DateTimeInput, ModelForm, NumberInput, Textarea,
+                          TextInput)
 
 from forum.models import Chapters
 
@@ -35,21 +36,36 @@ class ThemeForm_(ModelForm):
 
 
 class ThemeForm(forms.Form):
-    title = forms.CharField(min_length=10, max_length=150, label='Тема', required=True,
-                            widget=forms.TextInput(attrs={'placeholder': 'Тема',
-                                                          'class': 'form-control'})
-                            )
-    message = forms.CharField(label='Сообщение', required=True,
-                              min_length=15,
-                              widget=forms.Textarea(attrs={'placeholder': 'Сообщение',
-                                                           'class': 'form-control'})
-                              )
+    title = forms.CharField(
+        min_length=10,
+        max_length=150,
+        label='Тема',
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Тема',
+                'class': 'form-control'}))
+    message = forms.CharField(
+        label='Сообщение',
+        required=True,
+        min_length=15,
+        widget=forms.Textarea(
+            attrs={
+                'placeholder': 'Сообщение',
+                'class': 'form-control'}))
 
 
 class MessageForm(forms.Form):
-    message = forms.CharField(label='Сообщение', required=True,
-                              min_length=15,
-                              widget=forms.Textarea(attrs={'placeholder': 'Сообщение',
-                                                           'class': 'form-control'})
-                              )
-    image = forms.ImageField(label='Прикрепить изображение', required=False)
+    message = forms.CharField(
+        label='Сообщение',
+        required=True,
+        min_length=15,
+        widget=forms.Textarea(attrs={'placeholder': 'Сообщение',
+                                     'class': 'form-control'})
+    )
+    # image = forms.ImageField(label='Прикрепить изображение', required=False)
+    image = forms.ImageField(
+        label='Прикрепить изображение',
+        required=False,
+        widget=forms.FileInput(attrs={'multiple': True}))
+        # widget=forms.FileInput(attrs={'multiple': 'multiple'}))

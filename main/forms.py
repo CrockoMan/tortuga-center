@@ -3,8 +3,9 @@ from django import forms
 
 
 class ContactForm(forms.Form):
-        name=forms.CharField(min_length=10, label='Имя Фамилия', required=True,
-                             widget=forms.TextInput(attrs={'placeholder': 'Ваше имя',
+        name=forms.CharField(min_length=5, label='Имя Фамилия', required=True,
+                             widget=forms.TextInput(attrs={'placeholder':
+                                                           'Ваше имя, Фамилия',
                                                            'class': 'form-control'})
                              )
         email=forms.EmailField(label='E-mail', required=True,
