@@ -8,21 +8,6 @@ from main.utils import check_spam
 from tortuga.settings import EMAIL_RECIPIENT
 
 
-def index(request):
-    data = {
-        'title': ('Центр временного содержания и реабилитации '
-                  'черепахи Никольского'),
-        'values': [
-            'Some',
-            'Hello',
-            '123'],
-        'obj': {
-            'car': 'Toyota',
-            'age': 18,
-            'hobby': 'Drink'}}
-    return render(request, "main/index.html", data)
-
-
 def about(request):
     return render(request, "main/about.html")
 
