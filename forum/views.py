@@ -30,13 +30,6 @@ def get_client_ip(request):
 
 
 @login_required()
-def forum_create_quote_message(request, chapter_id, theme_id, message_id):
-    """Ответить с цитированием."""
-    theme = get_object_or_404(Messages, pk=message_id)
-    return HttpResponse(f"<h4>Ответить с цитированием {id} {theme.theme_id} <br> {request.META}</h4>")
-
-
-@login_required()
 def forum_create_message(request, chapter_id, pk):
     """Создать сообщение."""
     theme = get_object_or_404(Themes, pk=int(pk))
@@ -112,6 +105,13 @@ class ForumMessageDeleteView(LoginRequiredMixin, DeleteView):
 def forum_hide_message(request, chapter_id, theme_id, message_id):
     """Скрыть сообщение."""
     return HttpResponse(f'<h4>Скрать сообщение</h4>')
+
+
+@login_required()
+def forum_create_quote_message(request, chapter_id, theme_id, message_id):
+    """Ответить с цитированием."""
+    theme = get_object_or_404(Messages, pk=message_id)
+    return HttpResponse(f"<h4>Ответить с цитированием {id} {theme.theme_id} <br> {request.META}</h4>")
 
 
 @login_required()
