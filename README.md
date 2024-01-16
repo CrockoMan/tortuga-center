@@ -1,3 +1,5 @@
+[![Python](https://img.shields.io/badge/-Python-464641?style=flat-square&logo=Python)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-464646?style=flat-square&logo=django)](https://www.djangoproject.com/)
 # Ссылка на сайт: [tortuga-center.com](https://tortuga-center.ru/)</br>
 #### "Центр реабилитации черепахи Никольского"</br>
 Сайт волонтёрской организации. Позволяет публиковать посты, фотографии, отправлять email, форум</br>
