@@ -3,10 +3,8 @@ from django.utils.html import format_html
 
 from forum.models import Chapters, MessageImages, Messages, Themes
 
-# Register your models here.
 admin.site.register(Chapters)
 admin.site.register(Themes)
-# admin.site.register(Messages)
 
 
 @admin.register(MessageImages)
@@ -27,5 +25,4 @@ class MessageImagesAdmin(admin.ModelAdmin):
 @admin.register(Messages)
 class MessagesAdmin(admin.ModelAdmin):
     list_filter = ('theme_id', 'chapter_id',)
-    # list_editable = ('category',)
     search_fields = ('message',)

@@ -33,14 +33,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ALLOWED_HOSTS = ['*']
 
 
-# Application definition
-
 INSTALLED_APPS = [
-    'main',
-    'news',
-    'loginsys',
-    'captcha',
-    'forum',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'main',
+    'news',
+    'loginsys',
+    'captcha',
+    'forum',
 ]
 
 MIDDLEWARE = [
@@ -87,10 +85,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'tortuga.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-
 if DEBUG:
     DATABASES = {
         'default': {
@@ -111,9 +105,6 @@ else:
     }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -130,9 +121,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
-
 LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
@@ -142,13 +130,9 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 
-#    BASE_DIR /  "static",
 if DEBUG:
     STATICFILES_DIRS = [
         BASE_DIR / "main/static",
@@ -156,9 +140,6 @@ if DEBUG:
     ]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

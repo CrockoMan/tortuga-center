@@ -12,6 +12,18 @@ def about(request):
     return render(request, "main/about.html")
 
 
+def send_message(form):
+    mailmessage = (f"Сообщение с сайта tortuga-center.ru\n"
+                   f"От: {form.cleaned_data['name']}  "
+                   f"E-mail: {form.cleaned_data['email']} \n"
+                   f"Тема: {form.cleaned_data['theme']} \n"
+                   f"{form.cleaned_data['message']}\n"
+                   )
+    send_mail(form.cleaned_data['theme'],
+              mailmessage,
+              settings.EMAIL_HOST_USER, [EMAIL_RECIPIENT])
+
+
 def contacts(request):
     error = ''
     dictForm = {'name': '', 'email': '', 'theme': '', 'message': ''}
@@ -19,16 +31,7 @@ def contacts(request):
         form = ContactForm(request.POST)
         if form.is_valid() and check_spam(form.cleaned_data['theme'],
                                           form.cleaned_data['message']):
-            mailmessage = (f"Сообщение с сайта tortuga-center.ru\n"
-                           f"От: {form.cleaned_data['name']}  "
-                           f"E-mail: {form.cleaned_data['email']} \n"
-                           f"Тема: {form.cleaned_data['theme']} \n"
-                           f"{form.cleaned_data['message']}\n"
-                           )
-            send_mail(form.cleaned_data['theme'],
-                      mailmessage,
-                      #                      form.cleaned_data['message'],
-                      settings.EMAIL_HOST_USER, [EMAIL_RECIPIENT])
+            send_message(form)
             return render(request, "main/message.html",
                           {'message': 'Сообщение отправлено'})
         else:

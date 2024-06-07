@@ -64,7 +64,8 @@ def forum_create_message(request, chapter_id, pk):
 def forum_message(request, chapter_id, id):
     """Вывод сообщений темы."""
     theme = get_object_or_404(Themes, pk=int(id))
-    messages = Messages.objects.filter(theme_id=theme).prefetch_related('picture')
+    messages = Messages.objects.filter(theme_id=theme).prefetch_related(
+        'picture')
 
     chapter = get_object_or_404(Chapters, title=theme.chapter_id)
     theme.views = theme.views + 1
@@ -111,7 +112,8 @@ def forum_hide_message(request, chapter_id, theme_id, message_id):
 def forum_create_quote_message(request, chapter_id, theme_id, message_id):
     """Ответить с цитированием."""
     theme = get_object_or_404(Messages, pk=message_id)
-    return HttpResponse(f"<h4>Ответить с цитированием {id} {theme.theme_id} <br> {request.META}</h4>")
+    return HttpResponse(f"<h4>Ответить с цитированием {id} "
+                        f"{theme.theme_id} <br> {request.META}</h4>")
 
 
 @login_required()

@@ -16,11 +16,15 @@ from .forms import ArticlesForm, PictureForm
 from .models import ArticlePicture, Articles
 
 
+POSTS_PER_PAGE = 5
+FIRST_PAGE = 1
+
+
 @register.filter()
 def validate_url(url):
     url_form_field = URLField()
     try:
-        url = url_form_field.clean(url)
+        url_form_field.clean(url)
     except ValidationError:
         return False
     return True
@@ -37,12 +41,12 @@ def profile_view(request):
 
 def news_home(request):
     post_list = Articles.objects.all().order_by('-date')
-    paginator = Paginator(post_list, 5)
-    page_number = request.GET.get('page', 1)
+    paginator = Paginator(post_list, POSTS_PER_PAGE)
+    page_number = request.GET.get('page', FIRST_PAGE)
     try:
         posts = paginator.page(page_number)
     except PageNotAnInteger:
-        posts = paginator.page(1)
+        posts = paginator.page(FIRST_PAGE)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
     return render(request, 'news/news_home.html', {'news': posts})
@@ -72,7 +76,6 @@ def PictureUrlUpdate(request, id):
             picture.save()
             return redirect(f"/news/{picture.article_id_id}")
     else:
-        article = Articles.objects.get(title=picture.article_id)
         form = PictureForm(
             initial={
                 'title': picture.title,
@@ -179,21 +182,15 @@ def NewsLoadVk(request, id):
     wall_posts = load_from_vk()
     for post in wall_posts['items']:
         if int(post['id']) == int(id):
-            if len(post['text'].split('.', 1)[0]) < len(post['text']):
-                text_split = post['text'].split('.', 1)[1]
-            else:
-                text_split = ''
             cstr = (
                 f"{datetime.isoformat(datetime.fromtimestamp(post['date']))} "
                 f"{post['text'].split('.',1)[0]} <br>{post['text']} <br>")
-            Articles_Model = Articles(date=datetime.fromtimestamp(post['date']),
-                                      title=say_title(post['text'], 1),
-                                      # title = post['text'].split('.', 1)[0],
-                                      anons="",
-                                      full_detx=say_title(post['text'], 2),
-                                      # full_detx = text_split,
-                                      # #post['text'].split('.', 1)[1],
-                                      picture_url="")
+            Articles_Model = Articles(
+                date=datetime.fromtimestamp(post['date']),
+                title=say_title(post['text'], 1),
+                anons="",
+                full_detx=say_title(post['text'], 2),
+                picture_url="")
             Articles_Model.save()
             pk = Articles_Model.pk
             cstr = 'pk=' + \
@@ -202,19 +199,20 @@ def NewsLoadVk(request, id):
             if "attachments" in post:
                 for attachment in post['attachments']:
                     if attachment['type'] == 'photo':
-                        cstr += f"OWNER_ID={attachment['photo']['owner_id']} ID={attachment['photo']['id']}"
-                        cstr = cstr + '<br><a href="' + \
-                            attachment['photo']['sizes'][-1]['url'] + '">' + attachment['photo']['sizes'][-1]['url'] + '</a>'
-                        cstr = cstr + '<br><img src="' + \
-                            attachment['photo']['sizes'][-1]['url'] + '" width="200">'
-# ----------------------------------------------------------------------------------------------
+                        cstr += (f"OWNER_ID={attachment['photo']['owner_id']} "
+                                 f"ID={attachment['photo']['id']}")
+                        cstr = (cstr + '<br><a href="' + attachment[
+                            'photo']['sizes'][-1]['url'] + '">' +
+                                attachment['photo']['sizes'][-1]['url'] +
+                                '</a>')
+                        cstr = (cstr + '<br><img src="' + attachment[
+                            'photo']['sizes'][-1]['url'] + '" width="200">')
                         width = 0
                         url = ''
                         for size in attachment['photo']['sizes']:
                             if int(size['width']) > width:
                                 width = int(size['width'])
                                 url = size['url']
-# ----------------------------------------------------------------------------------------------
                         if Articles_Model.picture_url == "":
                             Articles_Model.picture_url = url
 

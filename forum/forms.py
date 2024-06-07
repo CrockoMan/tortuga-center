@@ -5,6 +5,12 @@ from django.forms import (DateTimeInput, ModelForm, NumberInput, Textarea,
 from forum.models import Chapters
 
 
+MIN_LEN = 15
+MAX_LEN = 150
+ID_MIN = 1
+ID_MAX = 99999
+
+
 class ChaptersForm(ModelForm):
     class Meta:
         model = Chapters
@@ -17,8 +23,8 @@ class ChaptersForm(ModelForm):
             'position': NumberInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'ID раздела',
-                'min': 1,
-                'max': 99999
+                'min': ID_MIN,
+                'max': ID_MAX
             }),
         }
 
@@ -37,8 +43,8 @@ class ThemeForm_(ModelForm):
 
 class ThemeForm(forms.Form):
     title = forms.CharField(
-        min_length=10,
-        max_length=150,
+        min_length=MIN_LEN,
+        max_length=MAX_LEN,
         label='Тема',
         required=True,
         widget=forms.TextInput(
@@ -48,7 +54,7 @@ class ThemeForm(forms.Form):
     message = forms.CharField(
         label='Сообщение',
         required=True,
-        min_length=15,
+        min_length=MIN_LEN,
         widget=forms.Textarea(
             attrs={
                 'placeholder': 'Сообщение',
@@ -59,13 +65,11 @@ class MessageForm(forms.Form):
     message = forms.CharField(
         label='Сообщение',
         required=True,
-        min_length=15,
+        min_length=MIN_LEN,
         widget=forms.Textarea(attrs={'placeholder': 'Сообщение',
                                      'class': 'form-control'})
     )
-    # image = forms.ImageField(label='Прикрепить изображение', required=False)
     image = forms.ImageField(
         label='Прикрепить изображение',
         required=False,
         widget=forms.FileInput(attrs={'multiple': True}))
-        # widget=forms.FileInput(attrs={'multiple': 'multiple'}))

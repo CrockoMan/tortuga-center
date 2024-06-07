@@ -5,13 +5,14 @@ from django.db import models
 from django.db.models import GenericIPAddressField
 
 MAX_LENGTH = 50
+TITLE_LEN = 200
+POST_DEFAULT = 0
 
 
-# Create your models here.
 class Chapters(models.Model):
-    title = models.CharField('Название', max_length=150)
+    title = models.CharField('Название', max_length=TITLE_LEN)
     date = models.DateTimeField('Дата', default=datetime.now)
-    position = models.IntegerField('Позиция', default=0)
+    position = models.IntegerField('Позиция', default=POST_DEFAULT)
     is_show = models.BooleanField(default=True)
 
     def __str__(self):
@@ -31,14 +32,13 @@ class Themes(models.Model):
                                    on_delete=models.CASCADE,
                                    related_name='themes'
                                    )
-    title = models.CharField('Название', max_length=150)
+    title = models.CharField('Название', max_length=TITLE_LEN)
     date = models.DateTimeField('Дата', default=datetime.now)
-#    author = models.CharField('Автор', max_length=9)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     ip_addr = GenericIPAddressField(blank=True, null=True)
     is_show = models.BooleanField(default=True)
-    posts = models.IntegerField('Сообщений', default=0)
-    views = models.IntegerField('Просмотры', default=0)
+    posts = models.IntegerField('Сообщений', default=POST_DEFAULT)
+    views = models.IntegerField('Просмотры', default=POST_DEFAULT)
 
     def __str__(self):
         return self.title[:MAX_LENGTH]
@@ -63,7 +63,7 @@ class Messages(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     ip_addr = GenericIPAddressField(blank=True, null=True)
     is_show = models.BooleanField(default=True)
-    quote_post_id = models.IntegerField('Цитирует пост N', default=0)
+    quote_post_id = models.IntegerField('Цитирует пост N', default=POST_DEFAULT)
 
     def __str__(self):
         return self.message[:MAX_LENGTH]
@@ -81,7 +81,7 @@ class MessageImages(models.Model):
     message_id = models.ForeignKey(Messages,
                                    on_delete=models.CASCADE,
                                    related_name='picture')
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=TITLE_LEN)
     image = models.ImageField('Изображение', upload_to='forum_images/%Y%m%d')
 
     def __str__(self):
