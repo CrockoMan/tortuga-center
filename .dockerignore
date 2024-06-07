@@ -1,0 +1,11 @@
+venv
+nginx
+.git
+.idea
+.env
+read.me
+*.zip
+db.sqlite3
+db.sqlite3_*
+docker-compose.production.yml
+
