@@ -1,11 +1,9 @@
 [![Python](https://img.shields.io/badge/-Python-464641?style=flat-square&logo=Python)](https://www.python.org/)
 [![Django](https://img.shields.io/badge/Django-464646?style=flat-square&logo=django)](https://www.djangoproject.com/)
-# Ссылка на сайт: [tortuga-center.com](https://tortuga-center.ru/)</br>
+
 #### "Центр реабилитации черепахи Никольского"</br>
-Pre-release backend сайта организации "Центр реабилитации черепахи 
-Никольского". Позволяет 
-публиковать посты, фотографии, отправлять 
-email, форум, синхронизация с VK</br>
+MVP backend сайта организации "Центр реабилитации черепахи Никольского". 
+Позволяет публиковать посты, фотографии, отправлять email, форум, синхронизация с VK</br>
 
 ### Технологии:
 Python, Django, SQL, Html, CSS, Bootstrap, CAPTCHA
